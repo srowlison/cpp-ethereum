@@ -47,12 +47,15 @@ HunterGate(
     SHA1 "a6fbc056c3d9d7acdaa0a07c575c9352951c2f6c"
 )
 
+set(CMAKE_CONFIGURATION_TYPES Debug Release RelWithDebInfo)
+
 # For Debug configuration request Release imported targets.
 # Hunter by default installs Debug and Release variants of packages. We only
 # need Release, but it is better not to change Hunter's default behavior to
 # be able to get packages from its cache server. Instead we ask CMake to use
 # Release imported targets even in Debug configuration.
-set(CMAKE_MAP_IMPORTED_CONFIG_DEBUG Release)
+set(CMAKE_MAP_IMPORTED_CONFIG_DEBUG RelWithDebInfo Release)
+set(CMAKE_MAP_IMPORTED_CONFIG_RELWITHDEBINFO RelWithDebInfo Release)
 
 
 # project name and version should be set after cmake_policy CMP0048
