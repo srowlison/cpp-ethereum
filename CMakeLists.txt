@@ -40,11 +40,20 @@ set(CPP_ETHEREUM_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE PATH "Path to the root di
 include(EthPolicy)
 eth_policy()
 
+
 include(HunterGate)
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.18.39.tar.gz"
     SHA1 "a6fbc056c3d9d7acdaa0a07c575c9352951c2f6c"
 )
+
+# For Debug configuration request Release imported targets.
+# Hunter by default installs Debug and Release variants of packages. We only
+# need Release, but it is better not to change Hunter's default behavior to
+# be able to get packages from its cache server. Instead we ask CMake to use
+# Release imported targets even in Debug configuration.
+set(CMAKE_MAP_IMPORTED_CONFIG_DEBUG Release)
+
 
 # project name and version should be set after cmake_policy CMP0048
 project(cpp-ethereum VERSION "1.3.0")
@@ -105,7 +114,7 @@ endif()
 
 if (TESTS)
 	enable_testing()
-	add_subdirectory(test)	
+	add_subdirectory(test)
 endif()
 
 # TODO - split out json_spirit, libscrypt and sec256k1
